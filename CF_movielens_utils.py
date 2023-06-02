@@ -31,7 +31,6 @@ def readdata(dataname, flag_reducedata=False, dataratio=0.3):
 
 def makedata(ratings, flag_test=False):
     rating_table = ratings.pivot_table(values='rating', index='userId', columns='movieId',fill_value=0)
-    #rating_table_test = ratings.pivot_table(values='rating', index='user_id', columns='movie_id',fill_value=0)
     
     # test
     if flag_test:
@@ -42,10 +41,8 @@ def makedata(ratings, flag_test=False):
     return rating_table
 
 def getsimilarity(rating_table):
-    #cos_sim = cosine_similarity([rating_table.iloc[userX,:]], [rating_table.iloc[userY,:]])
     rating_table_sparse = sparse.csr_matrix(rating_table)
     sim = cosine_similarity(rating_table_sparse)
-    #sim = cosine_similarity(rating_table)
     
     return sim
 
@@ -76,10 +73,6 @@ def visualisedata(rating_table,sim):
     # Cosine similarity (User-based)
     print('sim')
     print(sim.shape)
-    """
-    for i in range(num_user):
-        if sum(sim[i,:]) == 0:
-            print(f'arg:{i}')"""
     
     return num_user, num_item
 
